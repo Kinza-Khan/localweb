@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array</title>
+</head>
+<body>
+    
+        <ul>
+
+        </ul>
+
+    <script>
+        let stduentsData =  ["ali",21,"karachi", "ali@gmail.com"];
+        // console.log(stduentsData);
+        let printDataUl = document.querySelector("ul");
+        let storLi = "";
+        for(let i = 0 ; i<stduentsData.length ; i ++){
+            storLi += "<li>"+stduentsData[i]+"</li>";
+        }
+
+        printDataUl.innerHTML = storLi ;
+
+    </script>
+</body>
+</html>

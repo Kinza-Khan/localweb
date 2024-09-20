@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array</title>
+    <link rel="stylesheet" href="bootstrap-4.6.2-dist/css/bootstrap.min.css">
+    <script src="Jquery/jquery-3.7.1.js"></script>
+    <script src="bootstrap-4.6.2-dist/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<!-- popular cars  start-->
+<section id="popularCars">
+<div class="container p-5">
+    <div class="col-md-7">
+    <input type="text" id="searchValue" onkeyup="fun()" class="form-control" placeholder="search here">
+</div>
+    <div class="row p-5" id="popularCarsRow">
+
+    </div>
+</div>
+</section>
+<!-- end of popular cars -->
+<!-- popular Bikes  start-->
+<section id="popularBikes">
+    <div class="container">
+        <div class="row" id="popularBikesRow">
+            
+        </div>
+    </div>
+    </section>
+    <!-- end of popular Bikes -->
+    <script>
+        let myCarsRow = document.querySelector("#popularCarsRow");
+        let products = [
+            {name : "Toyota Carolla" , price : 9000000 ,  image : "images/c1.jpg"},
+            {name : "Mercedes" , price : 19000000 ,  image : "images/c2.png"},
+            {name : "Honda 6T7" , price : 89000000 ,  image : "images/c3.jpg"},
+            {name : "Toyota Carolla" , price : 890000 ,  image : "images/c4.jpg"}
+        ];
+        let myData = () => {
+            let myCarsCol = "";
+            for(let i = 0 ; i<products.length ; i++){
+            myCarsCol +=  `
+      <div class="col-md-3">
+    <div class="card">
+        <img class="card-img-top" src="`+products[i].image+`" alt="">
+        <div class="card-body">
+            <h4 class="card-title">`+products[i].name+`</h4>
+            <p class="card-text">`+products[i].price+`</p>
+        </div>
+    </div>
+     </div>`
+}
+myCarsRow.innerHTML = myCarsCol;
+        }
+        myData(); 
+        let fun = () =>{
+            let inpVal = document.querySelector("#searchValue").value;
+            let col2 = "";
+           let myFilterArray =  products.filter(element => {
+                return element.name.toLowerCase().includes(inpVal);
+           });
+           console.log(myFilterArray)
+           if(myFilterArray.length>0){
+            for(let i = 0 ; i<myFilterArray.length ; i++){
+col2 +=  `
+<div class="col-md-3">
+<div class="card">
+<img class="card-img-top" src="`+myFilterArray[i].image+`" alt="">
+<div class="card-body">
+<h4 class="card-title">`+myFilterArray[i].name+`</h4>
+<p class="card-text">`+myFilterArray[i].price+`</p>
+</div>
+</div>
+</div>`  
+   }
+}   
+           else{
+            myData();
+           }
+
+           myCarsRow.innerHTML = col2;
+        }
+       
+
+    </script>
+
+
+</body>
+</html>
+

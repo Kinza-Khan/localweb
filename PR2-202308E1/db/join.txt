@@ -1,0 +1,14 @@
+-- INSERT INTO department(name) VALUES ("HR"),("SRO")
+/* SELECT employee.name as 'Emp Name', department.name AS 'Dept Name'
+FROM employee 
+INNER JOIN 
+department
+ON
+employee.dId = department.id*/
+
+SELECT employee.name  AS "Emp Name" , employee.salary, department.name AS "Dept Name" FROM 
+employee
+RIGHT JOIN
+department
+ON
+employee.dId = department.id

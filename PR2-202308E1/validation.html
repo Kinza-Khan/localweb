@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="bootstrap-4.6.2-dist/css/bootstrap.min.css">
+    <script src="Jquery/jquery-3.7.1.js"></script>
+    <script src="bootstrap-4.6.2-dist/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container p-5">
+        <div class="col-md-7">
+                <div class="form-group">
+                  <label for="">Name</label>
+                  <input type="text" name="" id="userName" class="form-control" placeholder="" aria-describedby="helpId">
+                  <small ></small>
+                </div>
+                <div class="form-group">
+                    <label for="">Email</label>
+                    <input type="text" name="" id="userEmail" class="form-control" placeholder="" aria-describedby="helpId">
+                    <small ></small>
+                  </div>
+                  <div class="form-group">
+                    <label for="">User Password</label>
+                    <input type="text" name="" id="userPassword" class="form-control" placeholder="" aria-describedby="helpId">
+                    <small ></small>
+                  </div>
+                  <div class="form-group">
+                    <label for="">Confirm Password</label>
+                    <input type="text" name="" id="userConfirmPassword" class="form-control" placeholder="" aria-describedby="helpId">
+                    <small ></small>
+                  </div>
+
+                        <button id="sub" class="btn btn-info">Submit</button>
+        </div>
+    </div>
+
+    <script>
+        $("#userName").keyup(function(){
+            let userName = $(this).val();
+            let userNameRE = /^[a-zA-Z\s]{3,10}$/;
+            if(!userNameRE.test(userName)){
+                    $(this).css('border','2px solid red');
+                    $(this).next('small').show().text('please enter correct name').css('color','red');
+            }
+            else{
+                $(this).css('border','2px solid green');
+                $(this).next('small').hide();
+            }
+        })
+
+        // email RE  done
+
+        $("#userEmail").keyup(function(){
+            let userEmail = $(this).val();
+            let userEmailRE = /^[a-zA-Z0-9_]{3,}[@][a-z]{5,}[.][a-z]{2,3}$/;
+            if(!userEmailRE.test(userEmail)){
+                    $(this).css('border','2px solid red');
+                    $(this).next('small').show().text('please enter correct email format').css('color','red');
+            }
+            else{
+                $(this).css('border','2px solid green');
+                $(this).next('small').hide();
+            }
+        })    // RE
+        $("#userPassword").keyup(function(){
+            let userPassword = $(this).val();
+            let userPasswordRE = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@$#&]).{8,16}$/;
+            if(!userPasswordRE.test(userPassword)){
+                $(this).css('border','1px solid red');
+                $(this).next('small').show().text("password should contain at least one uppercase one lowercase one digit and one special character").css('color','red');
+            }
+            else{
+                $(this).css('border','1px solid green');
+                $(this).next('small').hide();
+            }
+        })
+        $("#userConfirmPassword").keyup(function(){
+            let userPassword = $("#userPassword").val();
+            let userConfirmPasword = $(this).val();
+
+            if(userPassword != userConfirmPasword){
+                    $(this).css('border','1px solid red');
+                    $(this).next('small').show().text("password not matched").css('color','red');
+            }
+            else{
+                $(this).css('border','1px solid green');
+                $(this).next('small').hide();
+            }
+        })
+
+        // works for empty fields
+
+           function emptyFields(id){
+                    if($(id).val() == ""){
+                        $(id).css('border','1px solid red');
+                    $(id).next('small').show().text("please filled out this field").css('color','red');  
+                    }
+           }
+
+        $("#sub").click(function(){
+            let userName = $('#userName').val();
+            let userNameRE = /^[a-zA-Z\s]{3,10}$/;
+            let userEmail = $('#userEmail').val();
+            let userEmailRE = /^[a-zA-Z0-9_]{3,}[@][a-z]{5,}[.][a-z]{2,3}$/;
+            let userPassword = $('#userPassword').val();
+            let userPasswordRE = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@$#&]).{8,16}$/;
+            let userConfirmPassword = $("#userConfirmPassword").val();
+
+            emptyFields('#userName');
+            emptyFields('#userEmail');
+            emptyFields('#userPassword');
+            emptyFields('#userConfirmPassword');
+
+                    let myData = JSON.parse(localStorage.getItem('myData')) || [] ;
+
+            if(userNameRE.test(userName) && userPasswordRE.test(userPassword) && userEmailRE.test(userEmail)){
+                            
+                        myData.push({"name":userName , "email":userEmail , "password":userPassword});
+                        localStorage.setItem('myData',JSON.stringify(myData));
+                            $('input').val('');
+                            $('input').css('border','');
+                            location.assign("selectlocal.html");
+            }
+            else{   
+                alert('invalid Data');
+            }
+
+
+          
+
+        })
+
+    </script>
+</body>
+</html>

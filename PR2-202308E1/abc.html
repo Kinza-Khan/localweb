@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Array Object</title>
+    <style>
+        .container {
+            position: relative;
+            top: 50px;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+        .d {
+            height: 250px;
+            width: 250px;
+            border-radius: 3px;
+            border: 1px solid rgb(179, 176, 176);
+        }
+
+        .imgDiv {
+            height: 170px;
+        }
+
+        .imgDiv img {
+            height: 170px;
+        }
+
+        .content {
+            height: 60px;
+            position: relative;
+            top: 0px;
+        }
+
+        .content h3 {
+            text-align: center;
+            position: relative;
+            top: -10px;
+            color: #233d7b;
+        }
+
+        .content p {
+            position: relative;
+            top: -20px;
+            text-align: center;
+        }
+
+        .container-fluid input {
+            height: 20px;
+            width: 40%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <input type="text" id="inpSearch" onkeyup="fun()">
+    </div>
+    <div class="container">
+        <div class="row" id="fnCars">
+
+        </div>
+    </div>
+
+    <script>
+        let row1 = document.querySelector("#fnCars");
+        let arrayObj = [
+            { cName: "Toyota Corolla", cPrice: 900000, cImage: "img/car1.jpg" },
+            { cName: "Honda City", cPrice: 500000, cImage: "img/car2.jpg" },
+            { cName: "Toyota Corolla", cPrice: 9600000, cImage: "img/car3.png" },
+            { cName: "Mercedes", cPrice: 9100000, cImage: "img/car4.jpg" }
+        ];
+
+        let MyData = () => {
+            let col1 = "";
+            for (i = 0; i < arrayObj.length; i++) {
+                col1 += ` <div class="d">
+                    <div class="imgDiv">
+                        <img src="`+ arrayObj[i].cImage + `" alt="">
+                    </div>              
+                    <div class="content">
+                        <h3>`+ arrayObj[i].cName + `</h3>
+                        <p>PKR `+ arrayObj[i].cPrice + `</p>
+                    </div>
+                </div>`
+            }
+            row1.innerHTML = col1;
+        }
+
+        MyData();
+
+        let fun = () => {
+            let inpVal = document.querySelector("#inpSearch").value;
+            let searchData = arrayObj.filter(element => {
+                return element.cName.includes(inpVal.toLowerCase());
+            });
+            let c2 = "";
+            if (searchData.length > 0) {
+                for (let i = 0; i < searchData.length; i++) {
+                    c2 += `<div class="d">
+                        <div class="imgDiv">
+                            <img src="` + searchData[i].cImage + `" alt="">
+                        </div>              
+                        <div class="content">
+                            <h3>` + searchData[i].cName + `</h3>
+                            <p>PKR ` + searchData[i].cPrice + `</p>
+                        </div>
+                    </div>`;
+                }
+            } else {
+                MyData();
+            }
+            row1.innerHTML = c2;
+        }
+    </script>
+</body>
+
+</html>

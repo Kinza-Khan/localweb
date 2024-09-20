@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="bootstrap-4.6.2-dist/css/bootstrap.min.css">
+    <script src="Jquery/jquery-3.7.1.js"></script>
+    <script src="bootstrap-4.6.2-dist/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container p-5">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>Action</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                    <td><a href="" class="btn btn-info">Edit</a></td>
+            </tbody>
+        </table>
+    </div>
+
+
+    <script>
+        let tbody = document.querySelector('tbody');
+        let tRow = "";
+        let myData = JSON.parse(localStorage.getItem('myData'));
+        console.log(myData)
+
+        myData.forEach(element => {
+            tRow += `
+            <tr>
+                        <td>`+element.name+`</td>
+                        <td>`+element.email+`</td>
+                        <td>`+element.password+`</td>
+                        <td><a href="" class="btn btn-info">Edit</a></td>
+                        <td><a href="" class="btn btn-danger">Remove</a></td>
+                        
+                    </tr>
+
+            `
+        });
+        tbody.innerHTML = tRow;
+    </script>
+</body>
+</html>

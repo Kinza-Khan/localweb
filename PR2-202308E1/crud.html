@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="bootstrap-4.6.2-dist/css/bootstrap.min.css">
+    <script src="Jquery/jquery-3.7.1.js"></script>
+    <script src="bootstrap-4.6.2-dist/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container p-5">
+        <div class="col-md-7">
+                <div class="form-group">
+                  <label for="">Name</label>
+                  <input type="text" name="" id="userName" class="form-control" placeholder="" aria-describedby="helpId">
+                  <small ></small>
+                </div>
+                <div class="form-group">
+                    <label for="">Email</label>
+                    <input type="text" name="" id="userEmail" class="form-control" placeholder="" aria-describedby="helpId">
+                    <small ></small>
+                  </div>
+                  <div class="form-group">
+                    <label for="">User Password</label>
+                    <input type="text" name="" id="userPassword" class="form-control" placeholder="" aria-describedby="helpId">
+                    <small ></small>
+                  </div>
+                  <!-- <div class="form-group">
+                    <label for="">Confirm Password</label>
+                    <input type="text" name="" id="userConfirmPassword" class="form-control" placeholder="" aria-describedby="helpId">
+                    <small ></small>
+                  </div> -->
+
+                        <button id="sub" onclick="setData()" class="btn btn-info">Submit</button>
+        </div>
+    </div>
+    <div class="container p-5">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>Action</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+               
+            </tbody>
+        </table>
+        
+<!-- Modal -->
+<div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="my-input">Name</label>
+                    <input id="uName" class="form-control" type="text" name="">
+                </div>
+                <div class="form-group">
+                    <label for="my-input">Email</label>
+                    <input id="uEmail" class="form-control" type="text" name="">
+                </div>
+                <div class="form-group">
+                    <label for="my-input">Password</label>
+                    <input id="uPassword" class="form-control" type="text" name="">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button  onclick="saveData()" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+    <script>
+        let myAllStudents = JSON.parse(localStorage.getItem('students')) || [] ;
+        let editIndex = -1 ;
+        function setData(){
+                let uName = document.querySelector("#userName").value;
+                let uEmail = document.querySelector("#userEmail").value;
+                let uPassword = document.querySelector("#userPassword").value;
+                myAllStudents.push({"name":uName , "email" :uEmail , "password" : uPassword});
+                localStorage.setItem('students',JSON.stringify(myAllStudents));
+                alert('user added sucessfully');
+                clearForm();    
+                location.assign("crud.html");
+    
+                
+        }
+        let tbody = document.querySelector("tbody");
+        let tr = "";
+        function selectData(){
+            let myStudents = JSON.parse(localStorage.getItem('students')) ;
+            console.log(myStudents);
+            myStudents.forEach((element , index)  => {
+                        tr += `
+                         <tr>
+                    <td>`+element.name+`</td>
+                    <td>`+element.email+`</td>
+                    <td>`+element.password+`</td>
+                     <td><button onclick="editData(`+index+`)" class="btn btn-info">Edit`+index+`</button></td>   
+                      <td><button onclick="removeData(`+index+`)" class="btn btn-danger">Remove`+index+`</button></td>       
+
+                </tr>
+                        `
+            });
+            tbody.innerHTML = tr ;
+        }
+        selectData();
+
+            function editData(index){
+                    editIndex = index ;
+                    let record = myAllStudents[index];
+                    console.log(record);
+                    document.querySelector("#uName").value = record.name;
+                    document.querySelector("#uEmail").value = record.email;
+                    document.querySelector("#uPassword").value = record.password;
+                    $("#modelId").modal('show');
+
+            }
+
+            function saveData(){
+                  let uName = document.querySelector("#uName").value;
+                  let uEmail = document.querySelector("#uEmail").value;
+                  let uPassword = document.querySelector("#uPassword").value;  
+                   myAllStudents[editIndex] = {"name":uName , "email" : uEmail , "password" : uPassword};
+                    localStorage.setItem('students',JSON.stringify(myAllStudents));
+                    alert("Record updated Successfully");
+                    location.assign('crud.html');
+
+            }
+            function clearForm(){
+                    document.querySelector("#userName").value = "" ;
+                    document.querySelector("#userEmail").value = "" ;
+                    document.querySelector("#userPassword").value = "" ;
+                 
+            }
+
+            function removeData(index){
+                    editIndex = index ;
+                    myAllStudents.splice(editIndex,1);
+                    localStorage.setItem('students',JSON.stringify(myAllStudents));
+                    alert("Record remove Successfully");
+                    location.assign('crud.html');
+                }
+
+    </script>
+</body>
+</html>
+
+

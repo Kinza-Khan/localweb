@@ -1,0 +1,14 @@
+-- SELECT * FROM employee WHERE salary >=75000 AND salary <=85000
+-- SELECT * FROM employee WHERE salary BETWEEN 75000 AND 85000
+-- ALTER TABLE employee ADD city varchar(200)
+-- UPDATE employee SET city = "lahore" WHERE id IN (3,4)
+-- SELECT city  FROM employee
+-- SELECT city FROM employee GROUP BY(city) ORDER BY (city) DESC LIMIT 1
+-- SELECT name , salary FROM employee  LIMIT 3
+
+-- SELECT COUNT(id) AS 'Total Users' FROM employee 
+-- SELECT MIN(salary) AS 'Minimum Salary'  FROM employee
+-- SELECT MAX(salary) AS 'Maximum Salary'  FROM employee
+-- SELECT AVG(salary) AS 'avg Salary'  FROM employee
+-- SELECT SUM(salary) AS 'sum of Salary'  FROM employee
+SELECT * FROM employee WHERE salary = (SELECT MIN(salary) FROM employee)
